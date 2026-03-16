@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusTrace - Lost Report</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header><h1>📢 Lost <span>Report</span></h1></header>
+
+        <div class="main-card">
+            <div class="input-group">
+                <label>👤 Name</label>
+                <input type="text" id="ownerName" placeholder="Your full name">
+            </div>
+
+            <div class="input-group">
+                <label>📧 Email (For Maps Alert)</label>
+                <input type="email" id="ownerEmail" placeholder="yourname@gmail.com">
+            </div>
+
+            <div class="input-group">
+                <label>🏷️ Item Lost</label>
+                <select id="lostCategory">
+                    <option value="Earbuds">Earbuds</option>
+                    <option value="Smartphone">Smartphone</option>
+                    <option value="ID Card">ID Card</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>📅 Date of Loss</label>
+                <input type="date" id="lostDate">
+            </div>
+
+            <button class="btn-submit" style="background: #ff4757;" onclick="submitLost()">Submit Lost Report</button>
+            <button style="background:transparent; color:#888; border:none; width:100%; margin-top:10px; cursor:pointer;" onclick="window.location.href='index.html'">Back</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

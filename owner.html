@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Owner Alerts</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .alert-card { background: rgba(0, 210, 255, 0.1); border: 1px solid #00d2ff; padding: 20px; border-radius: 15px; margin-top: 20px; animation: bounceIn 0.8s; }
+        @keyframes bounceIn { 0% { scale: 0.5; opacity: 0; } 100% { scale: 1; opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔔 Live <span>Alerts</span></h1>
+        <div id="display">Listening for matches...</div>
+    </div>
+    <script>
+        setInterval(() => {
+            const data = localStorage.getItem('lastFoundItem');
+            if(data) {
+                const item = JSON.parse(data);
+                document.getElementById('display').innerHTML = `
+                    <div class="alert-card">
+                        <h3>🎉 Item Found!</h3>
+                        <p>Category: <b>${item.category}</b></p>
+                        <p>Time: ${item.date} | ${item.time}</p>
+                        <img src="${item.photo}" style="width:100%; border-radius:10px; margin:10px 0;">
+                        <a href="${item.mapLink}" target="_blank" style="color:#00d2ff; font-weight:bold;">📍 View Spot on Map</a>
+                    </div>
+                ` + document.getElementById('display').innerHTML;
+                localStorage.removeItem('lastFoundItem');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

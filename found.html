@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusTrace - Found Item</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header><h1>🔍 CampusTrace <span>Found</span></h1></header>
+
+        <div id="scannerOverlay" class="scanner-overlay" style="display:none;">
+            <div class="scanner-box"><div class="line"></div></div>
+            <p style="margin-top:20px;">AI Matching & Notifying Owner...</p>
+        </div>
+
+        <div class="main-card">
+            <div class="input-group">
+                <label>📸 Item Photo</label>
+                <input type="file" id="itemPhoto" accept="image/*" onchange="previewImage(event)">
+                <img id="imgPreview" style="display:none; width:100%; border-radius:15px; margin-top:10px; border: 1px solid #38bdf8;">
+            </div>
+
+            <div class="input-group">
+                <label>🏷️ Category</label>
+                <select id="foundCategory">
+                    <option value="Earbuds">Earbuds</option>
+                    <option value="Smartphone">Smartphone</option>
+                    <option value="ID Card">ID Card</option>
+                    <option value="Watch">Watch</option>
+                </select>
+            </div>
+
+            <div style="display:flex; gap:10px;">
+                <div class="input-group" style="flex:1;"><label>📅 Date</label><input type="date" id="foundDate"></div>
+                <div class="input-group" style="flex:1;"><label>⏰ Time</label><input type="time" id="foundTime"></div>
+            </div>
+
+            <button class="btn-location" onclick="getLocation()">📍 Capture GPS Location</button>
+            <p id="locStatus" style="text-align:center; font-size:12px; margin-top:5px; color:#aaa;">Status: Waiting...</p>
+
+            <button class="btn-submit" onclick="startScanning()">Found & Notify Owner</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

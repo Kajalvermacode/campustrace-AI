@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusTrace AI - Item Gallery</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        .search-container {
+            margin-bottom: 20px;
+        }
+        #searchInput {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 14px;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .item-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+        .item-card:hover {
+            transform: translateY(-5px);
+            border-color: #00d2ff;
+        }
+        .item-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .item-info {
+            padding: 15px;
+        }
+        .item-category {
+            color: #00d2ff;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .item-details {
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+        .map-btn {
+            display: block;
+            text-align: center;
+            background: #00d2ff;
+            color: #000;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .map-btn:hover {
+            background: #008fcc;
+        }
+        .no-items {
+            text-align: center;
+            padding: 50px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="max-width: 900px;">
+        <header>
+            <h1>🖼️ Campus <span>Found</span> Gallery</h1>
+            <p>Check if your lost item is listed below</p>
+        </header>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" onkeyup="filterItems()" placeholder="🔍 Search items (e.g. Earbuds, Phone...)">
+        </div>
+
+        <div id="fullGallery" class="gallery-grid">
+            </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="btn-submit" onclick="window.location.href='index.html'" style="width: auto; padding: 10px 40px;">Back to Home</button>
+        </div>
+    </div>
+
+    <script>
+        // Data Load Karne Wala Logic
+        function loadGallery() {
+            const gallery = document.getElementById('fullGallery');
+            const items = JSON.parse(localStorage.getItem('allFoundItems')) || [];
+
+            if (items.length === 0) {
+                gallery.innerHTML = `
+                    <div class="no-items">
+                        <p>😟 Abhi tak koi saaman report nahi hua hai.</p>
+                    </div>`;
+                return;
+            }
+
+            gallery.innerHTML = items.map(item => `
+                <div class="item-card">
+                    <img src="${item.photo}" class="item-img" alt="Found Item">
+                    <div class="item-info">
+                        <div class="item-category">${item.category}</div>
+                        <div class="item-details">
+                            📅 Date: ${item.date} <br>
+                            ⏰ Time: ${item.time}
+                        </div>
+                        <a href="${item.mapLink}" target="_blank" class="map-btn">📍 View Exact Spot on Maps</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Search Filter Logic
+        function filterItems() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('item-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let category = cards[i].querySelector('.item-category').innerText.toLowerCase();
+                if (category.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        // Page load hote hi gallery load karo
+        window.onload = loadGallery;
+    </script>
+</body>
+</html>
